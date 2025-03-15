@@ -46,4 +46,31 @@ class ArticleController extends Controller
         return response()->json($article);
     }
 
+      //get personalized news
+      public function personalizedNews()
+      {
+            $user = Auth::user();
+            $preferences = UserPreference::where('user_id', $user->id)->first();
+
+            if (!$preferences) {
+                return response()->json(['message' => 'No preferences found.'], 404);
+            }
+
+            $query = Article::query();
+
+            // Filter by preferred categories
+            if (!empty($preferences->categories)) {
+                $query->whereIn('category', $preferences->categories);
+            }
+
+            // Filter by preferred sources
+            if (!empty($preferences->sources)) {
+                $query->whereIn('source', $preferences->sources);
+            }
+
+            $articles = $query->paginate(10);
+
+            return response()->json($articles);
+      }
+
 }
