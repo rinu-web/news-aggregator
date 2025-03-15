@@ -1,9 +1,11 @@
 <?php
 
 namespace Database\Seeders;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
+
 
 class ArticleSeeder extends Seeder
 {
@@ -18,7 +20,7 @@ class ArticleSeeder extends Seeder
             // The Guardian
             [
                 'title' => 'Life and Style',
-                'content' => 'How much do you spend on health and wellness a month?......',
+                'description' => 'How much do you spend on health and wellness a month?......',
                 'author' => 'Kirsten Lie-Nielsen',
                 'source' => 'The Guardian',
                 'category' => 'Environment',
@@ -30,7 +32,7 @@ class ArticleSeeder extends Seeder
             // NewsAPI
             [
                 'title' => 'Tech Giants Announce New AI Innovations',
-                'content' => 'Google, Microsoft, and OpenAI have revealed their latest AI projects...',
+                'description' => 'Google, Microsoft, and OpenAI have revealed their latest AI projects...',
                 'author' => 'Michael Johnson',
                 'source' => 'NewsAPI',
                 'category' => 'Technology',

@@ -2,25 +2,32 @@ version: '3.8'
 
 services:
   app:
-    image: php:8.2-cli
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: laravel_app
     working_dir: /var/www
     volumes:
       - .:/var/www
-    ports:
-      - "8000:8000"
-    command: php artisan serve --host=0.0.0.0 --port=8000
     depends_on:
       - db
+    command: php artisan serve --host=0.0.0.0 --port=8000
+    ports:
+      - "8000:8000"
 
   db:
     image: mysql:8
     container_name: laravel_db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laraveluser
+      MYSQL_DATABASE: laravel
       MYSQL_USER: user
-      MYSQL_PASSWORD: laravelpassword
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
     ports:
       - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
